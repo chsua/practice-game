@@ -4,15 +4,34 @@ const Car = require("./Car") ;
 
 
 class Racing {
+    #racingCount
+    #nowRacing
+    #carList 
 
-    requestCarName(){
+    constructor(){
+        this.#racingCount = 0 ;
+        this.#nowRacing = 0 ;
+        this.#carList = [] ;
+    }
+
+    requestCarNames(){
         Console.readLine(MESSAGE.ASK_CARNAME, (names) => {
             names = names.split(",") ;
+            try{
+                this.carNameCallback(names) ;
+            } catch (error ){
+                Console.print(error);
+                this.requestCarNames() ;
+            }
         })
     }
 
     carNameCallback(names){
-
+        names.forEach(name => {
+            this.carNameValidate(name)
+            this.#carList.push(new Car(name)) ;
+        }) ;
+        
     }
 
     carNameValidate(name){
@@ -20,7 +39,9 @@ class Racing {
     }
 
     requestRacingCount(){
-
+        Console.readLine(MESSAGE.ASK_RACINGCOUNT, ( count ) => {
+            
+        })
     }
 
     racingCountCallback(count){
@@ -28,7 +49,8 @@ class Racing {
     }
 
     racingCountValidate(count){
-
+        if ( !Number.isInteger(count)) throw new Error (MESSAGE.ERROR_RACECOUNT_LENGTH) ;
+        if ( count <= 0 ) throw new Error (MESSAGE.ERROR_RACECOUNT_LENGTH) ;
     }
 
     makeRandomNum(){
