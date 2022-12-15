@@ -1,15 +1,13 @@
-const { CAR, RACE, MESSAGE } = require("./Constant") ;
+const { CAR, MESSAGE } = require("./Constant") ;
 const { Console, Random } = require("@woowacourse/mission-utils");
 const Car = require("./Car") ;
 
 
 class Racing {
-    #racingCount
     #nowRacing
     #carList 
 
     constructor(){
-        this.#racingCount = 0 ;
         this.#nowRacing = 0 ;
         this.#carList = [] ;
     }
@@ -50,7 +48,14 @@ class Racing {
     }
 
     racingCountCallback(count){
-        
+        this.racingCountValidate(count) ;
+        this.printResultStart() ;
+        for ( this.#nowRacing ; this.#nowRacing < count ; this.#nowRacing++ ){
+            this.racing() ;
+            Console.print("") ;
+        }
+        this.printWinner() ;
+        Console.close() ;
     }
 
     racingCountValidate(count){
@@ -59,23 +64,32 @@ class Racing {
     }
 
     racing(){
-
+        this.#carList.forEach( car => {
+            car.go(this.makeRandomNum()) ;
+            Console.print(car.spotPrint()) ;
+        })
     }
 
     makeRandomNum(){
-
+        return Random.pickNumberInRange(0, 9);
     }
 
     printResultStart(){
-
-    }
-
-    printCarSpot(){
-
+        Console.print("실행결과\n")
     }
 
     printWinner(){
-
+        let winnerCount = 0, winner = [] ;
+        this.#carList.forEach( x => {
+            let [name, spot] = x.rank()
+            if ( spot === winnerCount ) {
+                winner.push(name) ;
+            } else if (spot > winnerCount){
+                winner = [name] ;
+                winnerCount = spot ;
+            }
+        })
+        Console.print (`최종 우승자: ${winner.join(", ")}`) ;
     }
 
 

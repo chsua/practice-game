@@ -19,7 +19,10 @@ class Car {
         return `${this.#name}: ${"-".repeat(this.#nowSpot)}` ;
     }
 
-
+    rank(){
+        const ranking = [this.#name, this.#nowSpot]
+        return ranking ;
+    }
 
 }
 
