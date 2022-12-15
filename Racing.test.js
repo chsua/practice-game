@@ -21,4 +21,14 @@ describe("Racing", () => {
             race.carNameValidate("")
         }).toThrow("[ERROR]") ;
     })
+
+    test("racingCountValidate_예외처리 확인", () => {
+        const race = new Racing() ;
+        expect(() => {
+            race.racingCountValidate(0)
+        }).toThrow("[ERROR]") ;
+        expect(() => {
+            race.racingCountValidate()
+        }).toThrow("[ERROR]") ;
+    })
 })
