@@ -31,7 +31,7 @@ class Racing {
             this.carNameValidate(name)
             this.#carList.push(new Car(name)) ;
         }) ;
-        
+        this.requestRacingCount() ;
     }
 
     carNameValidate(name){
@@ -40,17 +40,26 @@ class Racing {
 
     requestRacingCount(){
         Console.readLine(MESSAGE.ASK_RACINGCOUNT, ( count ) => {
-            
+            try {
+                this.racingCountCallback(+count) ;
+            } catch (error){
+                Console.print(error) ;
+                this.requestRacingCount() ;
+            }
         })
     }
 
     racingCountCallback(count){
-
+        
     }
 
     racingCountValidate(count){
         if ( !Number.isInteger(count)) throw new Error (MESSAGE.ERROR_RACECOUNT_LENGTH) ;
         if ( count <= 0 ) throw new Error (MESSAGE.ERROR_RACECOUNT_LENGTH) ;
+    }
+
+    racing(){
+
     }
 
     makeRandomNum(){
