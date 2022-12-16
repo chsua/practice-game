@@ -14,11 +14,11 @@ class Racing {
 
     requestCarNames(){
         Console.readLine(MESSAGE.ASK_CARNAME, (names) => {
-            names = names.split(",") ;
             try{
-                this.carNameCallback(names) ;
+                this.carNameCallback(names.split(",")) ;
             } catch (error ){
                 Console.print(error);
+                this.#carList = [] ;
                 this.requestCarNames() ;
             }
         })
