@@ -17,7 +17,7 @@ const Output = {
 
     end(result) {
         let message = MESSAGE.WIN;
-        if (result === "패") message = MESSAGE.WIN;
+        if (result === "패") message = MESSAGE.LOSE;
         else if (result === "무") message = MESSAGE.SAME;
         Console.print(message);
         Console.print(MESSAGE.END);
